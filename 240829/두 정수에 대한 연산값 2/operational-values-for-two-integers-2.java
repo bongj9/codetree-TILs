@@ -13,9 +13,7 @@ public class Main {
         int min = Math.Min(a,b);
         min += 10;
 
-        System.out.println(a , b);
-
-
+        System.out.println(min , max);
 
     }
 }
