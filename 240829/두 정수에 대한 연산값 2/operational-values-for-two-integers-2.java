@@ -9,11 +9,17 @@ public class Main {
         int b = Integer.parseInt(st.nextToken());
 
         int max = Math.max(a,b);
-        max *= 2;
+    
         int min = Math.min(a,b);
-        min += 10;
-
-        System.out.println(min+" "+max);
+    
+        if (a == min) {
+            a = min + 10;
+            b = max * 2;
+        } else {
+            a = max * 2;
+            b = min + 10;
+        }
+        System.out.print(a+" "+b);
 
     }
 }
