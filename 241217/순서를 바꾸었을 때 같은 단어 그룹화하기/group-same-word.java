@@ -6,7 +6,7 @@ public class Main {
         // 여기에 코드를 작성해주세요.
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        sc.nextInt();
+        sc.nextLine();
         HashMap<String, Integer> map = new HashMap<>();
         for(int i = 0; i < n ; i++){
             String input = sc.nextLine();
