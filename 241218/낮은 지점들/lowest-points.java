@@ -1,30 +1,29 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
+        // 여기에 코드를 작성해주세요.
         Scanner sc = new Scanner(System.in);
-
         int n = sc.nextInt();
-        long cnt = 0; // 합계 변수를 long으로 선언
+        long cnt = 0;
         LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
-
-        for (int i = 0; i < n; i++) {
+        for(int i = 0 ; i < n ; i ++ ){
             int x = sc.nextInt();
             int y = sc.nextInt();
 
-            // 같은 x값이 없으면 추가, 있으면 더 작은 y로 업데이트
-            if (!map.containsKey(x)) {
-                map.put(x, y);
-            } else if (map.get(x) > y) {
-                map.put(x, y); // 더 작은 y로 업데이트
+            if(!map.containsKey(x)){
+                map.put(x,y);
+            }else if(map.get(x) >  y){
+                map.replace(x , y);
             }
+            
+            
         }
-
-        // 남아있는 점들의 y값 합산
-        for (int y : map.values()) {
-            cnt += y;
+        for(Map.Entry<Integer , Integer> entry : map.entrySet()){
+           cnt += entry.getValue();
         }
-
         System.out.println(cnt);
+
     }
 }
