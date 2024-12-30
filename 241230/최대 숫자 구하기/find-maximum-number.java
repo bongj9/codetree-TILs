@@ -13,7 +13,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         st = new StringTokenizer(br.readLine());
         int [] inputs = new int[n];
-        for(int i = 0 ;  i< st.countTokens(); i++){
+        for(int i = 0 ;  i< n; i++){
                 inputs[i] = Integer.parseInt(st.nextToken());
         }
         for(int i = 1; i <= m ; i++){
