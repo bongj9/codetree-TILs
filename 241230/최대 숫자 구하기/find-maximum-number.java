@@ -10,6 +10,7 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
+        StringBuilder sb = new StringBuilder();
         st = new StringTokenizer(br.readLine());
         int [] inputs = new int[n];
         for(int i = 0 ;  i< st.countTokens(); i++){
@@ -20,7 +21,9 @@ public class Main {
         }
         for(int input : inputs){
             set.remove(input);
-            System.out.println(set.last());
+            sb.append(set.last()).append("\n");
         }
+
+        System.out.print(sb);
     }
 }
