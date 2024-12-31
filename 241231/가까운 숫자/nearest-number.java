@@ -1,50 +1,40 @@
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
+import java.util.TreeSet;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
+public class Main {    
+    public static final int INT_MAX = Integer.MAX_VALUE;
+    public static final int MAX_N = 100000;
+    
+    // 변수 선언
+    public static int n;
+    public static int[] queries = new int[MAX_N];
+    public static TreeSet<Integer> s = new TreeSet<>();
+    
+    public static int ans = INT_MAX;
 
-        // TreeSet 초기화
-        TreeSet<Integer> set = new TreeSet<>();
-        set.add(0); // 초기 값 추가
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 입력:
+        n = sc.nextInt();
+        for(int i = 0; i < n; i++)
+            queries[i] = sc.nextInt();
 
-        StringBuilder sb = new StringBuilder();
+        // x = 0 위치에 점을 놓고 시작합니다.
+        s.add(0);
 
-        for (int i = 0; i < n; i++) {
-            int x = Integer.parseInt(st.nextToken());
+        for(int i = 0; i < n; i++) {
+            // 가장 근처에 있는 오른쪽 점을 찾습니다.
+            // 존재한다면, 거리 중 최솟값을 갱신합니다.
+            if(s.higher(queries[i]) != null)
+                ans = Math.min(ans, s.higher(queries[i]) - queries[i]);
+            
+            // 가장 근처에 있는 왼쪽 점을 찾습니다.
+            // 거리 중 최솟값을 갱신합니다.
+            ans = Math.min(ans, queries[i] - s.lower(queries[i]));
 
-            // x보다 작은 가장 큰 값과 x보다 큰 가장 작은 값 탐색
-            Integer lower = set.lower(x);
-            Integer higher = set.higher(x);
-
-            // 가장 가까운 숫자 선택
-            int closestNumber;
-            if (lower == null) {
-                // lower가 없으면 higher 선택
-                closestNumber = higher;
-            } else if (higher == null) {
-                // higher가 없으면 lower 선택
-                closestNumber = lower;
-            } else {
-                // 둘 다 존재할 경우 거리 비교
-                if (x - lower <= higher - x) {
-                    closestNumber = lower;
-                } else {
-                    closestNumber = higher;
-                }
-            }
-
-            // 결과 저장
-            sb.append(closestNumber).append("\n");
-
-            // TreeSet에 현재 값 추가
-            set.add(x);
+            // 해당 점을 treeset에 추가합니다.
+            s.add(queries[i]);
+            System.out.println(ans);
         }
-
-        // 결과 출력
-        System.out.print(sb);
     }
 }
