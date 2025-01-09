@@ -39,48 +39,21 @@ public class Main {
             // 사람을 위치 순서로 정렬
             people.sort(Comparator.comparingInt(p -> p.position));
 
-            // 그룹 생성
-            List<List<Person>> groups = new ArrayList<>();
-            List<Person> currentGroup = new ArrayList<>();
-            currentGroup.add(people.get(0));
-
-            for (int i = 1; i < N; i++) {
-                if (people.get(i).position == people.get(i - 1).position) {
-                    // 같은 위치면 같은 그룹
-                    currentGroup.add(people.get(i));
-                } else {
-                    // 새로운 그룹 생성
-                    groups.add(currentGroup);
-                    currentGroup = new ArrayList<>();
-                    currentGroup.add(people.get(i));
-                }
-            }
-            groups.add(currentGroup);
-
-            // 3. 그룹 속도 업데이트
-            for (List<Person> group : groups) {
-                int minSpeed = group.stream().mapToInt(p -> p.speed).min().getAsInt();
-                for (Person p : group) {
-                    p.speed = minSpeed;
+            // 그룹 속도 업데이트: 뒤에서부터 처리
+            for (int i = N - 2; i >= 0; i--) {
+                if (people.get(i).position == people.get(i + 1).position) {
+                    people.get(i).speed = Math.min(people.get(i).speed, people.get(i + 1).speed);
                 }
             }
         }
 
-        // 마지막 그룹 수와 그룹별 인원수 계산
-        people.sort(Comparator.comparingInt(p -> p.position));
-        int groupCount = 0;
-        int[] groupSizes = new int[N];
-        int index = 0;
-
+        // 마지막 그룹 개수 계산
+        int groupCount = 1; // 첫 번째 그룹은 항상 존재
         for (int i = 1; i < N; i++) {
             if (people.get(i).position != people.get(i - 1).position) {
                 groupCount++;
-                groupSizes[index++] = 1;
-            } else {
-                groupSizes[index - 1]++;
             }
         }
-        groupCount++;
 
         // 출력
         System.out.println(groupCount);
