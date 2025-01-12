@@ -20,7 +20,7 @@ public class Main {
                 int first = pq.poll();
                 int second = pq.poll();
                 int third = pq.poll();
-                int sum = first * second * third;
+                long sum = (long) first * second * third;
 
                 pq.add(first);
                 pq.add(second);
